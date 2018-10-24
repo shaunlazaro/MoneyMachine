@@ -590,7 +590,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 969558692}
+        - m_Target: {fileID: 969558696}
           m_MethodName: CoinClick
           m_Mode: 1
           m_Arguments:
@@ -601,7 +601,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-        - m_Target: {fileID: 969558692}
+        - m_Target: {fileID: 969558694}
           m_MethodName: PrinterEnlarge
           m_Mode: 1
           m_Arguments:
@@ -629,7 +629,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 969558692}
+        - m_Target: {fileID: 969558694}
           m_MethodName: PrinterShrink
           m_Mode: 1
           m_Arguments:
@@ -876,7 +876,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 969558692}
+      - m_Target: {fileID: 969558696}
         m_MethodName: AttemptClickUpgrade
         m_Mode: 1
         m_Arguments:
@@ -1291,9 +1291,14 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 969558691}
+  - component: {fileID: 969558695}
+  - component: {fileID: 969558693}
+  - component: {fileID: 969558694}
+  - component: {fileID: 969558696}
+  - component: {fileID: 969558697}
   - component: {fileID: 969558692}
   m_Layer: 0
-  m_Name: GameStateTracker
+  m_Name: ScriptHandler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1320,16 +1325,52 @@ MonoBehaviour:
   m_GameObject: {fileID: 969558690}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e0030293999f7e4c82a2c736e2b4ec9, type: 3}
+  m_Script: {fileID: 11500000, guid: e835135f222bc0f468b44376fa3755af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: {fileID: 0}
+  numbers: {fileID: 0}
+--- !u!114 &969558693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 969558690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c0516ca88e14f549808d4c639209945, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &969558694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 969558690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71672e9e4785611468c99ceed22532c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: {fileID: 0}
+  numbers: {fileID: 0}
+--- !u!114 &969558695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 969558690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c968f9c5a4ffdd14db484c32c42f158c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Title: {fileID: 1264465380}
-  printer: {fileID: 559138675}
+  printer: {fileID: 135272273}
   printerPopUpLocation: {fileID: 16568100}
   bank: {fileID: 789320194}
   bankPopUpLocation: {fileID: 117255510}
   FadeText: {fileID: 1021732496544074, guid: af7fc8682365ddf4b9d72ae30f48e639, type: 2}
-  coins: 0
   ClickButton: {fileID: 664807428}
   CounterObject: {fileID: 1608268858}
   tickSpeed: 1
@@ -1337,18 +1378,38 @@ MonoBehaviour:
   mileStones: 3200000000000000c800000000000000e803000000000000
   mileStonesAchieved: 000000
   AutoClickPurchaseButton: {fileID: 1395419590}
+  AutoClickUpgradeButton: {fileID: 1708244975}
+  PrinterUpgradeButton: {fileID: 664807428}
   AutoClickPurchaseText: {fileID: 1238779991}
   AutoClickQuantity: {fileID: 273639252}
-  autoClickers: 0
-  AutoClickUpgradeButton: {fileID: 1708244975}
   AutoClickUpgradeTextObject: {fileID: 19678084}
   AutoClickUpgradeQuantityTextObject: {fileID: 599035777}
-  autoClickerUpgradeLevel: 1
-  PrinterUpgradeButton: {fileID: 664807428}
   PrinterUpgradeCostObject: {fileID: 1045130030}
   PrinterUpgradeQuantityTextObject: {fileID: 1032664684}
-  printerUpgradeLevel: 1
   IncomeSecondObject: {fileID: 1073991889}
+--- !u!114 &969558696
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 969558690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6fc43728a590334388682ca2000bc71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &969558697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 969558690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e276cfdd5a7758f49954e36961bb59e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tickFactor: 4
 --- !u!1 &1032664684
 GameObject:
   m_ObjectHideFlags: 0
@@ -2246,8 +2307,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 969558692}
-        m_MethodName: AttemptPurchase
+      - m_Target: {fileID: 969558696}
+        m_MethodName: AttemptInvestmentPurchase
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2380,16 +2441,16 @@ MonoBehaviour:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 40
     m_FontStyle: 2
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 0
-    m_MaxSize: 72
+    m_MaxSize: 40
     m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: X 0
+  m_Text: x 1000
 --- !u!222 &1608268861
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2474,8 +2535,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 969558692}
-        m_MethodName: AttemptUpgrade
+      - m_Target: {fileID: 969558696}
+        m_MethodName: AttemptInvestmentUpgrade
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

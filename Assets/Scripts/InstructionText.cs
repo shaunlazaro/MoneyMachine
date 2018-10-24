@@ -23,7 +23,7 @@ public class InstructionText : MonoBehaviour {
         investment = "Investments:\n" +
             "Invest money to get some passive income.";
         investmentUpgrade = "Study Investments:\n" +
-            "Allows you to get more money from your investments.";
+            "Allows you to get 50% more money from your investments. (Exponential)";
         blank = "Hover your mouse for more instructions!";
     }
 
