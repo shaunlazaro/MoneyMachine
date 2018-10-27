@@ -10,8 +10,9 @@ public class MilestoneUnlocks : MonoBehaviour {
     public GameNumbers numbers;
 
     // Milestones Data
-    private long[] mileStones;
-    private bool[] mileStonesAchieved;
+    private int[] mileStoneExponents;
+    private double[] mileStonesNumbers;
+    public bool[] mileStonesAchieved;
 
     // Title Text
     private Text TitleText;
@@ -27,12 +28,16 @@ public class MilestoneUnlocks : MonoBehaviour {
     // Unlock 3:
     private GameObject PrinterUpgradeButton;
 
+    // Unlock 4:
+    private GameObject PrestigeMenu;
+
     void Start()
     {
         data = gameObject.GetComponent<GameData>();
         numbers = gameObject.GetComponent<GameNumbers>();
 
-        mileStones = data.mileStones;
+        mileStonesNumbers = data.mileStones;
+        mileStoneExponents = data.mileStoneExponents;
         mileStonesAchieved = data.mileStonesAchieved;
 
         AutoClickPurchaseButton = data.AutoClickPurchaseButton;
@@ -43,7 +48,11 @@ public class MilestoneUnlocks : MonoBehaviour {
 
         PrinterUpgradeButton = data.PrinterUpgradeButton;
 
+        PrestigeMenu = data.MenuButton2;
+
         TitleText = data.Title.GetComponent<Text>();
+
+        
     }
 
     #region Unlocks
@@ -64,15 +73,21 @@ public class MilestoneUnlocks : MonoBehaviour {
         PrinterUpgradeButton.SetActive(true);
         TitleText.text = "A Finance Scholar With A Powerful Money Machine";
     }
+    void UnlockFour()
+    {
+        PrestigeMenu.SetActive(true);
+        TitleText.text = "An Excessively Rich Man With A Money Machine";
+    }
+
     public void MileStoneCheck()
     {
-        for (int i = 0; i < mileStones.Length; i++)
+        for (int i = 0; i < mileStonesNumbers.Length; i++)
         {
             if (mileStonesAchieved[i])
             {
                 continue;
             }
-            if (numbers.Coins > mileStones[i])
+            if (numbers.Coins > new GameNumbers.BigNumber(mileStonesNumbers[i], mileStoneExponents[i]))
             {
                 mileStonesAchieved[i] = true;
                 MileStoneReward(i + 1);
@@ -92,6 +107,9 @@ public class MilestoneUnlocks : MonoBehaviour {
                 break;
             case 3:
                 UnlockThree();
+                break;
+            case 4:
+                UnlockFour();
                 break;
             default:
                 Debug.Log("Milestone Incorrect!");

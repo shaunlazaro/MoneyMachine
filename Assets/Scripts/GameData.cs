@@ -6,7 +6,8 @@ public class GameData : MonoBehaviour {
 
     public GameObject Title;
 
-    public GameObject printer;
+    public GameObject printerParent;
+    public GameObject printerChild;
     public GameObject printerPopUpLocation;
     public GameObject bank;
     public GameObject bankPopUpLocation;
@@ -19,7 +20,8 @@ public class GameData : MonoBehaviour {
     public float tickFactor; //Multiplies tick worth, used to keep game balanced but change tick speed.
 
     // Milestones for unlocks
-    public long[] mileStones;
+    public double[] mileStones;
+    public int[] mileStoneExponents;
     public bool[] mileStonesAchieved;
 
     // Buttons
@@ -35,5 +37,11 @@ public class GameData : MonoBehaviour {
     public GameObject PrinterUpgradeCostObject;
     public GameObject PrinterUpgradeQuantityTextObject;
     public GameObject IncomeSecondObject;
-    
+
+    public GameObject MenuButton1;
+    public GameObject MenuButton2;
+
+    public GameObject Menu1;
+    public GameObject Menu2;
+    public GameObject Menu3;
 }

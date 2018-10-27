@@ -17,13 +17,15 @@ public class InstructionText : MonoBehaviour {
         printer= "Printer:\n" +
             "Prints money when you swipe it.";
         upgradePrinter = "Upgrade Printer: \n" +
-            "Makes your printer give you more money when you smack it.";
+            "Makes your printer give you more money per swipe.\nShortcut: Shift + E";
         bank = "Bank:\n" +
             "The bank spits out money if you have investments.";
         investment = "Investments:\n" +
-            "Invest money to get some passive income.";
+            "Invest money to get some passive income." +
+            "\nShortcut: Shift + Q";
         investmentUpgrade = "Study Investments:\n" +
-            "Allows you to get 50% more money from your investments. (Exponential)";
+            "Allows you to get 50% more money from your investments." +
+            "\nShortcut: Shift + W";
         blank = "Hover your mouse for more instructions!";
     }
 

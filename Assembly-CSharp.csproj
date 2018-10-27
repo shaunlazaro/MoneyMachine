@@ -54,7 +54,6 @@
      <Compile Include="Assets\EventManager.cs" />
      <Compile Include="Assets\SaveHandler.cs" />
      <Compile Include="Assets\Scripts\GameData.cs" />
-     <Compile Include="Assets\Scripts\GameManager.cs" />
      <Compile Include="Assets\Scripts\GameNumbers.cs" />
      <Compile Include="Assets\Scripts\InstructionText.cs" />
      <Compile Include="Assets\Scripts\MilestoneUnlocks.cs" />

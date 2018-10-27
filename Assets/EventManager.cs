@@ -10,6 +10,8 @@ public class EventManager : MonoBehaviour {
     GameData data;
     MilestoneUnlocks unlocks;
 
+    private GameNumbers.BigNumber negative = new GameNumbers.BigNumber(-1,0);
+
     void Start()
     {
         ui = gameObject.GetComponent<UIManager>();
@@ -20,11 +22,16 @@ public class EventManager : MonoBehaviour {
         StartCoroutine(AutoClickerCycle());
     }
 
+    void Save()
+    {
+        gameObject.GetComponent<SaveHandler>().Save();
+    }
+
     #region ClicksAndEvents
     public void CoinClick()
     {
-        numbers.Coins += numbers.CoinClickValue();
-        ui.PopUpNumbers(Color.yellow, Convert.ToString(numbers.CoinClickValue()),
+        numbers.IncreaseCoins(numbers.CoinClickValue());
+        ui.PopUpNumbers(Color.yellow, "+"+Convert.ToString(numbers.CoinClickValue()),
             data.printerPopUpLocation, new Vector3(1.2f, 1.2f, 1.2f));
         ui.UpdateUI();
         unlocks.MileStoneCheck();
@@ -34,9 +41,10 @@ public class EventManager : MonoBehaviour {
     {
         if (numbers.Coins >= numbers.AutoClickerCost())
         {
-            numbers.Coins -= numbers.AutoClickerCost();
+            numbers.IncreaseCoins(negative * numbers.AutoClickerCost());
             numbers.AutoClickers++;
             ui.UpdateUI();
+            Save();
         }
         else
         {
@@ -48,9 +56,10 @@ public class EventManager : MonoBehaviour {
     {
         if (numbers.Coins >= numbers.AutoClickerUpgradeCost())
         {
-            numbers.Coins -= numbers.AutoClickerUpgradeCost();
+            numbers.IncreaseCoins( negative * numbers.AutoClickerUpgradeCost());
             numbers.AutoClickerUpgradeLevel++;
             ui.UpdateUI();
+            Save();
         }
         else
         {
@@ -62,9 +71,10 @@ public class EventManager : MonoBehaviour {
     {
         if (numbers.Coins >= numbers.PrinterUpgradeCost())
         {
-            numbers.Coins -= numbers.PrinterUpgradeCost();
+            numbers.IncreaseCoins( negative * numbers.PrinterUpgradeCost());
             numbers.PrinterUpgradeLevel++;
             ui.UpdateUI();
+            Save();
         }
         else
         {
@@ -74,17 +84,17 @@ public class EventManager : MonoBehaviour {
 
     public IEnumerator AutoClickerCycle()
     {
-        yield return new WaitForSeconds(4);
         while (true)
         {
-            numbers.Coins += numbers.PassiveIncomePerTick();
-            ui.UpdateUI();
-            Debug.Log("Cycle!");
             if (numbers.AutoClickers > 0)
             {
+                numbers.IncreaseCoins(numbers.PassiveIncomePerTick());
+                ui.UpdateUI();
+                Debug.Log("Cycle!");
+            
                 ui.PopUpNumbers(Color.green,
                     Convert.ToString(numbers.PassiveIncomePerTick()),
-                    data.bankPopUpLocation, new Vector3(1.4f, 1.4f, 1.4f));
+                    data.bankPopUpLocation, new Vector3(1.3f, 1.3f, 1.3f));
                 ui.BankEnlarge();
                 yield return new WaitForSeconds(data.tickSpeed / 5);
                 ui.BankShrink();
@@ -94,5 +104,39 @@ public class EventManager : MonoBehaviour {
                 yield return new WaitForSeconds(data.tickSpeed);
         }
     }
+
+    public void MenuA()
+    {
+        ui.UISwitch(1);
+    }
+    public void MenuB()
+    {
+        ui.UISwitch(2);
+    }
     #endregion
+
+    // Keyboard Shortcuts
+    void Update()
+    {
+        if(Input.GetKey("left shift"))
+        {
+            if(Input.GetKeyDown("q") && unlocks.mileStonesAchieved[0])
+            {
+                AttemptInvestmentPurchase();
+            }
+            else if (Input.GetKeyDown("w") && unlocks.mileStonesAchieved[1])
+            {
+                AttemptInvestmentUpgrade();
+            }
+            else if (Input.GetKeyDown("e") && unlocks.mileStonesAchieved[2])
+            {
+                AttemptClickUpgrade();
+            }
+        }
+        // Dev Functions:
+        if (Input.GetKey("p") && Input.GetKey("o") && Input.GetKey("i") && Input.GetKeyDown("space"))
+            numbers.Coins = new GameNumbers.BigNumber(numbers.Coins.Mantissa, numbers.Coins.Exponent+1);
+        if (Input.GetKey("j") && Input.GetKey("k") && Input.GetKey("l") && Input.GetKeyDown("space"))
+            PlayerPrefs.DeleteAll();
+    }
 }

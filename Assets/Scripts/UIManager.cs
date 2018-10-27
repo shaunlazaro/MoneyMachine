@@ -27,6 +27,10 @@ public class UIManager : MonoBehaviour {
     private GameObject printer;
     private GameObject bank;
 
+    // Parent objects for different menus
+    private GameObject MenuA;
+    private GameObject MenuB;
+
     void Start()
     {
         data = gameObject.GetComponent<GameData>();
@@ -41,23 +45,23 @@ public class UIManager : MonoBehaviour {
         PrinterUpgradeCostText = data.PrinterUpgradeCostObject.GetComponent<Text>();
         PrinterUpgradeQuantityText = data.PrinterUpgradeQuantityTextObject.GetComponent<Text>();
         IncomeSecondText = data.IncomeSecondObject.GetComponent<Text>();
-        printer = data.printer;
+        printer = data.printerChild;
         bank = data.bank;
+        MenuA = data.Menu1;
+        MenuB = data.Menu2;
     }
 
     #region UI
     public void UpdateUI()
     {
-        CounterText.text = "X " + numbers.Coins;
+        CounterText.text = numbers.Coins.ToString();
         AutoPurchaseText.text = "Cost: " + numbers.AutoClickerCost();
         AutoClickQuantityText.text = "Investments: " + numbers.AutoClickers;
         AutoClickUpgradeText.text = "Cost: " + numbers.AutoClickerUpgradeCost();
-        AutoClickUpgradeQuantityText.text = "Inv. Upgrades: " + numbers.AutoClickerUpgradeLevel;
+        AutoClickUpgradeQuantityText.text = "Bank Upgrade: " + numbers.AutoClickerUpgradeLevel;
         PrinterUpgradeCostText.text = "Cost: " + numbers.PrinterUpgradeCost();
         PrinterUpgradeQuantityText.text = "Printer Upgrades: " + numbers.PrinterUpgradeLevel;
-        IncomeSecondText.text = "Income: " + (long)numbers.tickFactor *
-            (long)((float)numbers.AutoClickers * Math.Pow((float)1.5, (float)numbers.AutoClickerUpgradeLevel))
-            + "/ Tick";
+        IncomeSecondText.text = "Income: " + numbers.PassiveIncomePerTick();
     }
 
     public void PopUpNumbers(Color popUpColor, string popUpText, GameObject popUpLocation)
@@ -91,6 +95,43 @@ public class UIManager : MonoBehaviour {
     {
         Debug.Log("UI Placeholder: " + message);
     }
+
+    void ClearChildren()
+    {
+        foreach (Transform child in data.printerPopUpLocation.transform)
+        {
+            Destroy(child.gameObject);
+        }
+        foreach (Transform child in data.bankPopUpLocation.transform)
+        {
+            Destroy(child.gameObject);
+        }
+    }
+
+    public void UISwitch(int id)
+    {
+        ClearChildren();
+        switch (id)
+        {
+            case 1:
+                HideAllMenu();
+                MenuA.SetActive(true);
+                break;
+            case 2:
+                HideAllMenu();
+                MenuB.SetActive(true);
+                break;
+            default:
+                Debug.Log("UI: Invalid id - " + id);
+                break;
+        }
+    }
+    private void HideAllMenu()
+    {
+        MenuA.SetActive(false);
+        MenuB.SetActive(false);
+    }
+
     public void PrinterEnlarge()
     {
         printer.GetComponent<RectTransform>().localScale = new Vector3(1.1f, 1.1f, 1.1f);
