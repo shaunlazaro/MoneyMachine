@@ -38,6 +38,10 @@ public class GameData : MonoBehaviour {
     public GameObject PrinterUpgradeQuantityTextObject;
     public GameObject IncomeSecondObject;
 
+    //Prestige Menu
+    public GameObject PrestigeGainText;
+    public GameObject PrestigeCurrencyText;
+
     public GameObject MenuButton1;
     public GameObject MenuButton2;
 

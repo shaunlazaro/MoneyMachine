@@ -23,6 +23,10 @@ public class UIManager : MonoBehaviour {
     private Text PrinterUpgradeQuantityText;
     private Text IncomeSecondText;
 
+    //Prestige Menu Objects
+    private Text PrestigeCurrencyGainText;
+    private Text CurrentPrestigeCurrency;
+
     // Object Popping:
     private GameObject printer;
     private GameObject bank;
@@ -49,6 +53,8 @@ public class UIManager : MonoBehaviour {
         bank = data.bank;
         MenuA = data.Menu1;
         MenuB = data.Menu2;
+        PrestigeCurrencyGainText = data.PrestigeGainText.GetComponent<Text>();
+        CurrentPrestigeCurrency = data.PrestigeCurrencyText.GetComponent<Text>();
     }
 
     #region UI
@@ -62,6 +68,13 @@ public class UIManager : MonoBehaviour {
         PrinterUpgradeCostText.text = "Cost: " + numbers.PrinterUpgradeCost();
         PrinterUpgradeQuantityText.text = "Printer Upgrades: " + numbers.PrinterUpgradeLevel;
         IncomeSecondText.text = "Income: " + numbers.PassiveIncomePerTick();
+
+        if(MenuB.activeSelf)
+        {
+            PrestigeCurrencyGainText.text = "You wil gain: " 
+                + numbers.GetPrestigeCurrencyAmount() + " PP";
+            CurrentPrestigeCurrency.text = "You currently have: " + numbers.PrestigeCurrency + " PP";
+        }
     }
 
     public void PopUpNumbers(Color popUpColor, string popUpText, GameObject popUpLocation)

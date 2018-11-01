@@ -33,6 +33,14 @@ public class GameNumbers : MonoBehaviour {
         set { autoClickers = value; }
     }
 
+    // Functionally 0
+    private BigNumber prestigeCurrency = new BigNumber(0, 0);
+    public BigNumber PrestigeCurrency
+    {
+        get { return prestigeCurrency; }
+        set { prestigeCurrency = value; }
+    }
+
     // Arrays store the cost of upgrade x+1 at element x;
     private List<BigNumber> printerUpgradeCosts;
     private List<BigNumber> autoClickerUpgradeCosts;
@@ -41,6 +49,8 @@ public class GameNumbers : MonoBehaviour {
     // Array stores the total modifier at upgrade x
     private List<BigNumber> printerUpgradeModifiers;
     private List<BigNumber> autoClickerUpgradeModifiers;
+
+    //
 
     void Awake()
     {
@@ -71,7 +81,7 @@ public class GameNumbers : MonoBehaviour {
         autoClickerCosts.Add(autoClickerCosts[i - 1] * new BigNumber(1.5,0));
 
         printerUpgradeModifiers.Add(printerUpgradeModifiers[i - 1] * new BigNumber(5, 0));
-        autoClickerUpgradeModifiers.Add(autoClickerUpgradeModifiers[i - 1] * new BigNumber(1.5, 0));
+        autoClickerUpgradeModifiers.Add(autoClickerUpgradeModifiers[i - 1] * new BigNumber(1.75, 0));
     }
   
 
@@ -79,11 +89,30 @@ public class GameNumbers : MonoBehaviour {
     {
         coins += coinIncrease;
     }
+    public void PrestigeWipe()
+    {
+        // Clears all the upgrade levels, and resets coins
+        printerUpgradeLevel = 1;
+        autoClickers = 0;
+        autoClickerUpgradeLevel = 1;
+        coins = new BigNumber(0, 1);
+    }
 
     #region Numbers
+    public BigNumber PrestigeMultiplier()
+    {
+        return new BigNumber(0.1, 0) * prestigeCurrency + new BigNumber (1,0);
+    }
+
+    // Subtract 1 to get decimal modifier, half, then add 1 to get base of 1 back.
+    public BigNumber HalfPrestigeMultiplier()
+    {
+        return (PrestigeMultiplier() - new BigNumber(1, 0)) / 
+            new BigNumber(2, 0) + new BigNumber(1, 0);
+    }
     public BigNumber CoinClickValue()
     {
-        return printerUpgradeModifiers[(int)printerUpgradeLevel-1];
+        return printerUpgradeModifiers[(int)printerUpgradeLevel-1] * HalfPrestigeMultiplier();
     }
     public BigNumber PrinterUpgradeCost()
     {
@@ -101,10 +130,21 @@ public class GameNumbers : MonoBehaviour {
     {
         return new BigNumber(gameObject.GetComponent<GameData>().tickFactor,0) 
             * new BigNumber(autoClickers,0) 
-            * autoClickerUpgradeModifiers[(int)autoClickerUpgradeLevel-1];
+            * autoClickerUpgradeModifiers[(int)autoClickerUpgradeLevel-1]
+            * PrestigeMultiplier();
     }
 
+    // x = (-2500 + sqrt(6 250 000 + y))/5000
+    public BigNumber GetPrestigeCurrencyAmount()
+    {
+        BigNumber s = ((new BigNumber(-2500, 0) + (new BigNumber(625, 4) + coins).SquareRoot()) / new BigNumber(5, 3));
+        if (s > prestigeCurrency)
+            return s;
+        else
+            return new BigNumber(0, 0);
+    }
     #endregion
+   
 
     public struct BigNumber
     {
@@ -233,7 +273,7 @@ public class GameNumbers : MonoBehaviour {
 
         public void Calculate()
         {
-            if (Mantissa >= 10.0 || Mantissa < 1.0)
+            if (Mantissa >= 10.0 || (Mantissa < 1.0 && Mantissa!=0))
             {
                 int diff = (int)Math.Floor(Math.Log10(Mantissa));
                 Mantissa /= Math.Pow(10, diff);
@@ -241,9 +281,21 @@ public class GameNumbers : MonoBehaviour {
             }
         }
 
+        public BigNumber SquareRoot()
+        {
+            if(this.Exponent % 2 == 1)
+            {
+                this.Mantissa *= 10;
+                this.Exponent -= 1;
+            }
+            return new BigNumber(Math.Sqrt(this.Mantissa), this.Exponent / 2);
+        }
+
         public override string ToString()
         {
             this.Calculate();
+            if (Exponent == 0 && Mantissa == 0)
+                return "0";
             if (Exponent < 6)
                 return ((long)(Mantissa * Math.Pow(10, Exponent))).ToString();
 //          else if (Exponent > 15)

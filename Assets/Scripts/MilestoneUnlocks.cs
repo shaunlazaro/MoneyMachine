@@ -31,7 +31,7 @@ public class MilestoneUnlocks : MonoBehaviour {
     // Unlock 4:
     private GameObject PrestigeMenu;
 
-    void Start()
+    void Awake()
     {
         data = gameObject.GetComponent<GameData>();
         numbers = gameObject.GetComponent<GameNumbers>();
@@ -114,6 +114,15 @@ public class MilestoneUnlocks : MonoBehaviour {
             default:
                 Debug.Log("Milestone Incorrect!");
                 break;
+        }
+    }
+
+    public void MileStoneRefresh()
+    {
+        for(int i = 0; i < mileStonesAchieved.Length; i++)
+        {
+            if(mileStonesAchieved[i])
+                MileStoneReward(i+1);
         }
     }
 

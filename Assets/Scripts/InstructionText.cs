@@ -24,7 +24,7 @@ public class InstructionText : MonoBehaviour {
             "Invest money to get some passive income." +
             "\nShortcut: Shift + Q";
         investmentUpgrade = "Study Investments:\n" +
-            "Allows you to get 50% more money from your investments." +
+            "Allows you to get 75% more money from your investments." +
             "\nShortcut: Shift + W";
         blank = "Hover your mouse for more instructions!";
     }
