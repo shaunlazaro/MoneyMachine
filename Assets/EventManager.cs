@@ -118,6 +118,7 @@ public class EventManager : MonoBehaviour {
             if (numbers.AutoClickers > 0)
             {
                 numbers.IncreaseCoins(numbers.PassiveIncomePerTick());
+                unlocks.MileStoneCheck();
                 ui.UpdateUI();
 
                 if (!data.Menu2.activeSelf)

@@ -76,11 +76,15 @@ public class GameNumbers : MonoBehaviour {
     // Contains all of the formulas!
     public void UpdateLists(int i)
     {
+        // Cost increases
         printerUpgradeCosts.Add(printerUpgradeCosts[i - 1] * new BigNumber(10,0));
         autoClickerUpgradeCosts.Add(autoClickerUpgradeCosts[i - 1] * new BigNumber(2.5,0));
-        autoClickerCosts.Add(autoClickerCosts[i - 1] * new BigNumber(1.5,0));
+        autoClickerCosts.Add(autoClickerCosts[i - 1] * new BigNumber(1.1,0));
 
-        printerUpgradeModifiers.Add(printerUpgradeModifiers[i - 1] * new BigNumber(5, 0));
+        // Multiplier per upgrade
+        printerUpgradeModifiers.Add(printerUpgradeModifiers[i - 1] * new BigNumber(8, 0));
+
+        // Multiplier per upgrade
         autoClickerUpgradeModifiers.Add(autoClickerUpgradeModifiers[i - 1] * new BigNumber(1.75, 0));
     }
   
@@ -101,12 +105,16 @@ public class GameNumbers : MonoBehaviour {
     #region Numbers
     public BigNumber PrestigeMultiplier()
     {
+        if (prestigeCurrency == new BigNumber(0, 0))
+            return new BigNumber(1, 0);
         return new BigNumber(0.1, 0) * prestigeCurrency + new BigNumber (1,0);
     }
 
     // Subtract 1 to get decimal modifier, half, then add 1 to get base of 1 back.
     public BigNumber HalfPrestigeMultiplier()
     {
+        if (prestigeCurrency == new BigNumber(0, 0))
+            return new BigNumber(1, 0);
         return (PrestigeMultiplier() - new BigNumber(1, 0)) / 
             new BigNumber(2, 0) + new BigNumber(1, 0);
     }

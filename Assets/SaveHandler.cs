@@ -32,9 +32,13 @@ public class SaveHandler : MonoBehaviour {
             double.Parse(PlayerPrefs.GetString("PrestigeMantissa")),
             int.Parse(PlayerPrefs.GetString("PrestigeExponent")));
 
-        milestone.mileStonesAchieved[3] = bool.Parse(PlayerPrefs.GetString("Prestige Unlocked"));
+        if (numbers.AutoClickers > 0) milestone.mileStonesAchieved[0] = true;
+        if (numbers.AutoClickerUpgradeLevel > 1) milestone.mileStonesAchieved[1] = true;
+        if (numbers.PrinterUpgradeLevel > 1) milestone.mileStonesAchieved[2] = true;
 
-        milestone.MileStoneCheck();
+
+        milestone.mileStonesAchieved[3] = bool.Parse(PlayerPrefs.GetString("Prestige Unlocked"));
+        
         milestone.MileStoneRefresh(); //MileStoneRefresh redoes all of the unlocks, 
         //because milestoneachieved[x] keeps track but doesn't actually handle unlocks
     }

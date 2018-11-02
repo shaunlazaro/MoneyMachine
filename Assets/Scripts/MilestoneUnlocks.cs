@@ -56,24 +56,24 @@ public class MilestoneUnlocks : MonoBehaviour {
     }
 
     #region Unlocks
-    void UnlockOne()
+    public void UnlockOne()
     {
         AutoClickPurchaseButton.SetActive(true);
         Bank.SetActive(true);
         IncomeSecondObject.SetActive(true);
         TitleText.text = "An Investor With A Money Machine";
     }
-    void UnlockTwo()
+    public void UnlockTwo()
     {
         AutoClickUpgradeButton.SetActive(true);
         TitleText.text = "A Finance Scholar With A Money Machine";
     }
-    void UnlockThree()
+    public void UnlockThree()
     {
         PrinterUpgradeButton.SetActive(true);
         TitleText.text = "A Finance Scholar With A Powerful Money Machine";
     }
-    void UnlockFour()
+    public void UnlockFour()
     {
         PrestigeMenu.SetActive(true);
         TitleText.text = "An Excessively Rich Man With A Money Machine";
